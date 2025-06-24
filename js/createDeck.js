@@ -131,7 +131,7 @@ function viewNextCard() {
   if (curr) {
     console.log("world");
     curr.style.display = 'none';
-    const nextCard = currentCard.nextElementSibling;
+    const nextCard = curr.nextElementSibling;
     if (nextCard) {
       nextCard.style.display = 'block';
     } else {
