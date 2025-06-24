@@ -9,9 +9,9 @@ const previousButton = document.querySelector('#prev');
 const view = document.querySelector('.btns');
 
 
-let data = localStorage.getItem("items")
+let data = localStorage.getItem("card")
 if (data) {
-  data = JSON.parse(localStorage.getItem("items"))
+  data = JSON.parse(localStorage.getItem("card"))
 } else {
   data = []
 }
@@ -31,7 +31,7 @@ function viewCard() {
 
 
   data.push(flashQuestions);
-  localStorage.setItem("items", JSON.stringify(data));
+  localStorage.setItem("card", JSON.stringify(data));
 
 
 
@@ -119,7 +119,7 @@ function previous() {
       previouscard.style.display = 'block';
     } else {
 
-      containers.firstElementChild.style.display = 'block';
+      // containers.firstElementChild.style.display = 'block';
     }
   }
 
@@ -136,7 +136,7 @@ function viewNextCard() {
       nextCard.style.display = 'block';
     } else {
 
-      containers.firstElementChild.style.display = 'block';
+      // containers.firstElementChild.style.display = 'block';
     }
   }
 }
