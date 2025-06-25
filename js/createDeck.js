@@ -17,7 +17,7 @@ if (data) {
 }
 
 let count = 0;
-
+let index = 0;
 
 function viewCard() {
 
@@ -25,6 +25,7 @@ function viewCard() {
   let flashQuestions = {
     question: question.value,
     answer: answer.value,
+    index: index,
 
   };
 
@@ -53,18 +54,6 @@ function create() {
 
 
 
-
-
-function previousCards() {
-  count--;
-  if (count >= data.length) {
-    count = 0;
-  }
-  // createCard();
-  ans.style.display = 'none';
-
-}
-
 function createCard(notecard) {
 
   box_container.style.display = "none";
@@ -75,35 +64,46 @@ function createCard(notecard) {
   view.style.display = "none";
 
 
-  const flashcard = document.createElement("div");
-  flashcard.classList.add("flashcard");
 
-  flashcard.innerHTML = ` 
+  data.forEach((notecard, index) => {
+
+    const flashcard = document.createElement("div");
+    flashcard.classList.add("flashcard");
+
+
+    flashcard.innerHTML = ` 
        
           <div class="card-front"><h3>${notecard.question}</h3></div>
           <div class="hidden-div" id="firstDiv"><h3>${notecard.answer}</h3></div>
-         
-    
+          <div class="card-number"> Card Number: ${index + 1}</div>
         
       `;
 
-  containers.prepend(flashcard);
-
-  const first = document.getElementById('firstDiv');
-  first.style.display = 'none';
 
 
 
-  const previousCard = flashcard.nextElementSibling;
-  if (previousCard) {
-    previousCard.style.display = 'none';
-  }
+    containers.prepend(flashcard);
+
+    const first = document.getElementById('firstDiv');
+    first.style.display = 'none';
+
+
+
+    const previousCard = flashcard.nextElementSibling;
+    if (previousCard) {
+      previousCard.style.display = 'none';
+    }
 
 
 
 
-  notecard.question = "";
-  notecard.answer = "";
+    notecard.question = "";
+    notecard.answer = "";
+  });
+
+
+
+
 
 
 
@@ -128,10 +128,12 @@ previousButton.addEventListener('click', previous);
 
 function viewNextCard() {
   const curr = containers.querySelector(` .flashcard:not([style*="display: none"])`);
+
   if (curr) {
     console.log("world");
     curr.style.display = 'none';
     const nextCard = curr.nextElementSibling;
+
     if (nextCard) {
       nextCard.style.display = 'block';
     } else {
