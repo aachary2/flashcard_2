@@ -93,6 +93,19 @@ function createCard(notecard) {
     if (previousCard) {
       previousCard.style.display = 'none';
     }
+    buttons.addEventListener("click", () => {
+
+
+      if (first.style.display === "none") {
+        first.style.display = "block"
+      } else {
+        first.style.display = "none";
+      }
+
+
+
+    });
+
 
 
 
@@ -143,20 +156,6 @@ function viewNextCard() {
   }
 }
 
-buttons.addEventListener("click", () => {
-
-  const first = document.getElementById('firstDiv');
-
-
-  if (first.style.display === "none") {
-    first.style.display = "block"
-  } else {
-    first.style.display = "none";
-  }
-
-
-
-});
 
 
 
