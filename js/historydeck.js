@@ -8,6 +8,8 @@ let question = {
 }
 let data = Object.entries(question);
 let count = 0;
+let currIndex = 0;
+const cardNumber = document.querySelector(".card-number");
 const q = document.querySelector('.question');
 const ans = document.querySelector('.answer');
 const checkButton = document.querySelector('#check');
@@ -15,25 +17,27 @@ const nextButton = document.querySelector('#next');
 const previousButton = document.querySelector('#prev');
 
 
-function getQuestion() {
-  q.innerHTML = `<h3>${data[count][0]}</h3>`;
-  ans.innerHTML = `<h3>${data[count][1]}</h3>`
+function getQuestion(index) {
+  q.innerHTML = `<h3>${data[currIndex][0]}</h3>`;
+  ans.innerHTML = `<h3>${data[currIndex][1]}</h3>`
+  cardNumber.textContent = currIndex + 1;
+  document.getElementById("deck-total").textContent = `Total Cards: ${data.length}`
 
 }
 function nextCard() {
-  count++;
-  if (count >= data.length) {
-    count = 0;
+  currIndex++;
+  if (currIndex >= data.length) {
+    currIndex = 0;
   }
-  getQuestion();
+  getQuestion(currIndex);
   ans.style.display = 'none';
 }
 function previousCards() {
-  count--;
-  if (count >= data.length) {
-    count = 0;
+  currIndex--;
+  if (currIndex >= data.length) {
+    currIndex = 0;
   }
-  getQuestion();
+  getQuestion(currIndex);
   ans.style.display = 'none';
 
 }
@@ -43,19 +47,6 @@ checkButton.addEventListener('click', function () {
 });
 nextButton.addEventListener('click', nextCard);
 previousButton.addEventListener('click', previousCards);
-getQuestion();
-const colors = document.getElementById('color');
-const colorBtn = document.getElementById('colorBtn');
-colorBtn.addEventListener('click', () => {
-
-  colors.click();
-});
-
-colors.addEventListener('input', function () {
-
-  const colorChoices = colors.value;
-  document.body.style.backgroundColor = colorChoices;
-
-});
+getQuestion(currIndex);
 
 
