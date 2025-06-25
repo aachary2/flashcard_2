@@ -43,7 +43,7 @@ function previousCards() {
 }
 
 checkButton.addEventListener('click', function () {
-  ans.style.display = 'block';
+  ans.style.display = (ans.style.display === "none") ? "block" : "none";
 });
 nextButton.addEventListener('click', nextCard);
 previousButton.addEventListener('click', previousCards);
