@@ -15,6 +15,8 @@ const ans = document.querySelector('.answer');
 const checkButton = document.querySelector('#check');
 const nextButton = document.querySelector('#next');
 const previousButton = document.querySelector('#prev');
+const lastQuestion = document.querySelector('#last');
+const firstQuestion = document.querySelector('#first');
 
 
 function getQuestion(index) {
@@ -46,6 +48,17 @@ checkButton.addEventListener('click', function () {
   ans.style.display = (ans.style.display === "none") ? "block" : "none";
 });
 nextButton.addEventListener('click', nextCard);
+lastQuestion.addEventListener('click', function () {
+  currIndex = 3;
+  getQuestion();
+
+});
+firstQuestion.addEventListener('click', function () {
+  currIndex = 0;
+  getQuestion();
+
+});
+
 previousButton.addEventListener('click', previousCards);
 getQuestion(currIndex);
 
