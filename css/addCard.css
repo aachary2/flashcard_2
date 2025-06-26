@@ -124,3 +124,12 @@ body {
   border-radius: 15px;
 
 }
+
+#darkModeToggle {
+  color: gray;
+  padding: 10px;
+  border-radius: 5px;
+
+
+
+}

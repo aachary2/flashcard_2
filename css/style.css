@@ -115,3 +115,11 @@ button:hover {
 .form-group {
     text-align: center;
 }
+
+#darkModeToggle {
+    color: gray;
+    padding: 10px;
+    border-radius: 5px;
+
+
+}
