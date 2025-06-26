@@ -81,6 +81,14 @@ body {
   display: none;
 }
 
+.hidden-div {
+  border: solid 5px green;
+  text-align: center;
+  width: 50%;
+  margin: auto;
+  margin-top: 50px;
+}
+
 .btns {
   display: none;
   justify-content: center;
