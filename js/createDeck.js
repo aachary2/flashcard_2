@@ -95,10 +95,12 @@ function previous() {
   currIndex--;
   console.log(data.length);
   console.log(currIndex);
-  if (currIndex >= data.length) {
+  if (currIndex < data.length) {
     currIndex = 0;
     previouscard.style.display = 'none';
-    curr.style.display = 'block';
+    const nextCard = curr.nextElementSibling;
+
+    nextCard.style.display = 'block';
 
 
   } else {
@@ -120,10 +122,21 @@ previousButton.addEventListener('click', previous);
 
 function viewNextCard() {
   const curr = containers.querySelector(`.flashcard:not([style*="display: none"])`);
+  const nextCard = curr.nextElementSibling;
+
   currIndex++;
+  // if (currIndex >= data.length) {
+  //   currIndex = data.length - 1;
+  //   nextCard.style.display = 'none';
+  //   curr.style.display = 'block';
+
+  //   //previousCards.style.display = 'block';
+
+
+  // } else {
   if (curr) {
     curr.style.display = 'none';
-    const nextCard = curr.nextElementSibling;
+
 
     if (nextCard) {
       nextCard.style.display = 'block';
@@ -131,6 +144,7 @@ function viewNextCard() {
 
 
   }
+  //}
 }
 
 nextButton.addEventListener("click", viewNextCard);
