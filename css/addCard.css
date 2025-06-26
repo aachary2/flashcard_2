@@ -1,19 +1,18 @@
-
-.display-5{
+.display-5 {
   text-align: center;
 }
 
-body{
-  
-  background-color:beige;
+body {
+
+  background-color: beige;
   height: 100vh;
   width: 100vw;
- 
+
 
 }
 
 
-.container{
+.container {
   text-align: center;
   display: none;
   align-items: flex-end;
@@ -23,9 +22,9 @@ body{
   border-radius: 19px;
   box-shadow: 0 0 0 15px rgba(118, 115, 115, 0.344);
   max-width: 360px;
-  margin:auto;
+  margin: auto;
   margin-top: 118px;
-  
+
 
 }
 
@@ -37,106 +36,70 @@ body{
   align-items: center;
   width: 300px;
   padding: 18px 10px;
-  
+
 }
 
 
-/* .flashcards{
-  
-  text-align: center;
-  background-color: white;
-  display:flex;
-  padding: 15px;
-  border-radius: 9px;
-  box-shadow: 0 0 0 15px rgba(41, 11, 11, 0.344);
-  max-width: 360px;
-  margin:auto;
-  margin-top: 118px;
-  
 
-}  */
-/* .flashcard {
-  text-align: center;
-  background-color: white;
-  display:flex;
-  width: 500px;
-  padding: 18px 10px;
-  border-radius: 9px;
-  box-shadow: 0 0 0 15px rgba(41, 11, 11, 0.344);
-  margin:auto;
-  margin-top: 118px;
-} */
-.questions{
-  margin:auto;
+.questions {
+  margin: auto;
   margin-top: 28px;
   text-align: center;
   width: 45%;
- 
+
 }
-.containers{
+
+.containers {
   text-align: center;
   display: none;
   background-color: white;
   padding: 24px;
   border-radius: 19px;
   box-shadow: 0 0 0 15px rgba(118, 115, 115, 0.344);
-  max-width: 360px;
-  margin:auto;
+  max-width: 580px;
+  margin: auto;
   margin-top: 118px;
-  
 
-  
-}
-.button{
-  display: flex; 
-  justify-content: center; 
-  align-items: center; 
-  gap: 10px; 
+
+
 }
 
+.button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
 
-.answers{
+
+.answers {
   border: solid 5px green;
   text-align: center;
-  width:50%;
+  width: 50%;
   margin: auto;
   margin-top: 80px;
-  display:none;
-}
-.btns{
-  display: none; 
-  justify-content: center; 
-  align-items: center; 
-  gap: 10px; 
+  display: none;
 }
 
-#view{
- 
-  color:white;
+.btns {
+  display: none;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+
+#view {
+
+  color: white;
   background-color: orange;
   padding: 15px;
   border-radius: 8px;
-  
+
 
 }
-#prev{
-  color:white;
-  display: none;
-  background-color: orange;
-  padding: 20px;
-  border-radius: 15px;
-  
-}
-#check{
-  color:white;
-  display: none;
-  background-color: orange;
-  padding: 20px;
-  border-radius: 15px;
-}
-#next{
-  
-  color:white;
+
+#prev {
+  color: white;
   display: none;
   background-color: orange;
   padding: 20px;
@@ -144,4 +107,20 @@ body{
 
 }
 
+#check {
+  color: white;
+  display: none;
+  background-color: orange;
+  padding: 20px;
+  border-radius: 15px;
+}
 
+#next {
+
+  color: white;
+  display: none;
+  background-color: orange;
+  padding: 20px;
+  border-radius: 15px;
+
+}

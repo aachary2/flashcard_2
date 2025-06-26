@@ -10,16 +10,15 @@ const questionInput = document.getElementById("question");
 const answerInput = document.getElementById("answer");
 const errorMessage = document.getElementById("error");
 
-let data = localStorage.getItem("card");
+let data = sessionStorage.getItem("card");
 if (data) {
   data = JSON.parse(data);
 } else {
   data = [];
 }
 
-let count = 0;
-let index = 0;
 
+let currIndex = 0;
 function viewCard() {
   const question = questionInput.value.trim();
   const answer = answerInput.value.trim();
@@ -35,11 +34,11 @@ function viewCard() {
   let flashQuestions = {
     question: question,
     answer: answer,
-    index: index,
+    currIndex: currIndex,
   };
 
   data.push(flashQuestions);
-  localStorage.setItem("card", JSON.stringify(data));
+  sessionStorage.setItem("card", JSON.stringify(data));
 
   createCard(flashQuestions);
 
@@ -60,14 +59,18 @@ function createCard(notecard) {
   buttons.style.display = "block";
   view.style.display = "none";
 
+
   const flashcard = document.createElement("div");
   flashcard.classList.add("flashcard");
 
+  flashcard.setAttribute("currIndex", currIndex);
   flashcard.innerHTML = `
     <div class="card-front"><h3>${notecard.question}</h3></div>
     <div class="hidden-div" id="firstDiv"><h3>${notecard.answer}</h3></div>
-    <div class="card-number">Card Number: ${data.length}</div>
+    <div class="card-number">Card Number: ${currIndex + 1}</div>
+    <span class="deck-total">Total Cards: ${data.length}</span>
   `;
+
 
   containers.prepend(flashcard);
 
@@ -76,6 +79,7 @@ function createCard(notecard) {
 
   const previousCard = flashcard.nextElementSibling;
   if (previousCard) {
+    currIndex++;
     previousCard.style.display = 'none';
   }
 
@@ -84,26 +88,49 @@ function createCard(notecard) {
   });
 }
 
+
 function previous() {
   const curr = containers.querySelector(`.flashcard:not([style*="display: none"])`);
-  if (curr) {
-    curr.style.display = 'none';
-    const previouscard = curr.previousElementSibling;
-    if (previouscard) {
-      previouscard.style.display = 'block';
+  const previouscard = curr.previousElementSibling;
+  currIndex--;
+  console.log(data.length);
+  console.log(currIndex);
+  if (currIndex >= data.length) {
+    currIndex = 0;
+    previouscard.style.display = 'none';
+    curr.style.display = 'block';
+
+
+  } else {
+    if (curr) {
+      curr.style.display = 'none';
+
+
+      if (previouscard) {
+        previouscard.style.display = 'block';
+      }
     }
+
   }
+
+
 }
 previousButton.addEventListener('click', previous);
 
+
 function viewNextCard() {
   const curr = containers.querySelector(`.flashcard:not([style*="display: none"])`);
+  currIndex++;
   if (curr) {
     curr.style.display = 'none';
     const nextCard = curr.nextElementSibling;
+
     if (nextCard) {
       nextCard.style.display = 'block';
     }
+
+
   }
 }
+
 nextButton.addEventListener("click", viewNextCard);
