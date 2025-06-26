@@ -22,7 +22,7 @@ const firstQuestion = document.querySelector('#first');
 function getQuestion(index) {
   q.innerHTML = `<h3>${data[currIndex][0]}</h3>`;
   ans.innerHTML = `<h3>${data[currIndex][1]}</h3>`
-  cardNumber.textContent = currIndex + 1;
+  cardNumber.textContent = `Card Number: ${currIndex + 1}`;
   document.getElementById("deck-total").textContent = `Total Cards: ${data.length}`
 
 }
