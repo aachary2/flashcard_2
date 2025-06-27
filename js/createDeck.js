@@ -10,15 +10,10 @@ const questionInput = document.getElementById("question");
 const answerInput = document.getElementById("answer");
 const errorMessage = document.getElementById("error");
 
-let data = sessionStorage.getItem("card");
-if (data) {
-  data = JSON.parse(data);
-} else {
-  data = [];
-}
-
-
+let data = JSON.parse(sessionStorage.getItem("card")) || [];
 let currIndex = 0;
+let cards = []; 
+
 function viewCard() {
   const question = questionInput.value.trim();
   const answer = answerInput.value.trim();
@@ -31,16 +26,12 @@ function viewCard() {
 
   errorMessage.style.display = "none";
 
-  let flashQuestions = {
-    question: question,
-    answer: answer,
-    currIndex: currIndex,
-  };
-
-  data.push(flashQuestions);
+  const flashCard = { question, answer };
+  data.push(flashCard);
   sessionStorage.setItem("card", JSON.stringify(data));
-
-  createCard(flashQuestions);
+  
+ 
+  renderCards();
 
   questionInput.value = "";
   answerInput.value = "";
@@ -51,100 +42,63 @@ function create() {
   view.style.display = "flex";
 }
 
-function createCard(notecard) {
+function renderCards() {
+  containers.innerHTML = ""; 
+  cards = [];
+
+  data.forEach((cardData, index) => {
+    const flashcard = document.createElement("div");
+    flashcard.classList.add("flashcard");
+
+    flashcard.innerHTML = `
+      <div class="card-front"><h3>${cardData.question}</h3></div>
+      <div class="hidden-div" style="display:none;"><h3>${cardData.answer}</h3></div>
+      <div class="card-number">Card ${index + 1} of ${data.length}</div>
+    `;
+
+    containers.appendChild(flashcard);
+    cards.push(flashcard);
+    flashcard.style.display = "none"; 
+  });
+
+  currIndex = data.length - 1;
+  showCard(currIndex);
+
   box_container.style.display = "none";
   containers.style.display = "block";
-  nextButton.style.display = "block";
-  previousButton.style.display = "block";
-  buttons.style.display = "block";
+  nextButton.style.display = "inline-block";
+  previousButton.style.display = "inline-block";
+  buttons.style.display = "inline-block";
   view.style.display = "none";
-
-
-  const flashcard = document.createElement("div");
-  flashcard.classList.add("flashcard");
-
-  flashcard.setAttribute("currIndex", currIndex);
-  flashcard.innerHTML = `
-    <div class="card-front"><h3>${notecard.question}</h3></div>
-    <div class="hidden-div" id="firstDiv"><h3>${notecard.answer}</h3></div>
-    <div class="card-number">Card Number: ${currIndex + 1}</div>
-    <span class="deck-total">Total Cards: ${data.length}</span>
-  `;
-
-
-  containers.prepend(flashcard);
-
-  const first = flashcard.querySelector('#firstDiv');
-  first.style.display = 'none';
-
-  const previousCard = flashcard.nextElementSibling;
-  if (previousCard) {
-    currIndex++;
-    previousCard.style.display = 'none';
-  }
-
-  buttons.addEventListener("click", () => {
-    first.style.display = (first.style.display === "none") ? "block" : "none";
-  });
 }
 
+function showCard(index) {
+  cards.forEach(card => card.style.display = "none");
+  if (cards[index]) {
+    cards[index].style.display = "block";
+
+    const answerDiv = cards[index].querySelector(".hidden-div");
+    answerDiv.style.display = "none";
+
+  
+    buttons.onclick = () => {
+      answerDiv.style.display = (answerDiv.style.display === "none") ? "block" : "none";
+    };
+  }
+}
 
 function previous() {
-  const curr = containers.querySelector(`.flashcard:not([style*="display: none"])`);
-  const previouscard = curr.previousElementSibling;
-  currIndex--;
-  console.log(data.length);
-  console.log(currIndex);
-  if (currIndex < data.length) {
-    currIndex = 0;
-    previouscard.style.display = 'none';
-    const nextCard = curr.nextElementSibling;
-
-    nextCard.style.display = 'block';
-
-
-  } else {
-    if (curr) {
-      curr.style.display = 'none';
-
-
-      if (previouscard) {
-        previouscard.style.display = 'block';
-      }
-    }
-
+  if (currIndex > 0) {
+    currIndex--;
+    showCard(currIndex);
   }
-
-
 }
 previousButton.addEventListener('click', previous);
 
-
 function viewNextCard() {
-  const curr = containers.querySelector(`.flashcard:not([style*="display: none"])`);
-  const nextCard = curr.nextElementSibling;
-
-  currIndex++;
-  // if (currIndex >= data.length) {
-  //   currIndex = data.length - 1;
-  //   nextCard.style.display = 'none';
-  //   curr.style.display = 'block';
-
-  //   //previousCards.style.display = 'block';
-
-
-  // } else {
-  if (curr) {
-    curr.style.display = 'none';
-
-
-    if (nextCard) {
-      nextCard.style.display = 'block';
-    }
-
-
+  if (currIndex < data.length - 1) {
+    currIndex++;
+    showCard(currIndex);
   }
-  //}
 }
-
 nextButton.addEventListener("click", viewNextCard);
