@@ -10,9 +10,15 @@ const questionInput = document.getElementById("question");
 const answerInput = document.getElementById("answer");
 const errorMessage = document.getElementById("error");
 
-let data = JSON.parse(sessionStorage.getItem("card")) || [];
+let data = sessionStorage.getItem("card");
+if (data) {
+  data = JSON.parse(data);
+} else {
+  data = [];
+}
+
 let currIndex = 0;
-let cards = []; 
+let cards = [];
 
 function viewCard() {
   const question = questionInput.value.trim();
@@ -26,12 +32,15 @@ function viewCard() {
 
   errorMessage.style.display = "none";
 
-  const flashCard = { question, answer };
+  const flashCard = {
+    question,
+    answer
+  };
   data.push(flashCard);
   sessionStorage.setItem("card", JSON.stringify(data));
-  
- 
-  renderCards();
+
+
+  createCards();
 
   questionInput.value = "";
   answerInput.value = "";
@@ -42,8 +51,15 @@ function create() {
   view.style.display = "flex";
 }
 
-function renderCards() {
-  containers.innerHTML = ""; 
+function createCards() {
+
+  box_container.style.display = "none";
+  containers.style.display = "block";
+  nextButton.style.display = "inline-block";
+  previousButton.style.display = "inline-block";
+  buttons.style.display = "inline-block";
+  view.style.display = "none";
+  containers.innerHTML = "";
   cards = [];
 
   data.forEach((cardData, index) => {
@@ -53,44 +69,55 @@ function renderCards() {
     flashcard.innerHTML = `
       <div class="card-front"><h3>${cardData.question}</h3></div>
       <div class="hidden-div" style="display:none;"><h3>${cardData.answer}</h3></div>
-      <div class="card-number">Card ${index + 1} of ${data.length}</div>
+      <div class="card-number">Card ${index + 1} </div>
+      <div class ="deck-total"> Total Cards:${data.length}</div>
     `;
 
     containers.appendChild(flashcard);
     cards.push(flashcard);
-    flashcard.style.display = "none"; 
+    flashcard.style.display = "none";
   });
 
   currIndex = data.length - 1;
-  showCard(currIndex);
-
-  box_container.style.display = "none";
-  containers.style.display = "block";
-  nextButton.style.display = "inline-block";
-  previousButton.style.display = "inline-block";
-  buttons.style.display = "inline-block";
-  view.style.display = "none";
-}
-
-function showCard(index) {
   cards.forEach(card => card.style.display = "none");
-  if (cards[index]) {
-    cards[index].style.display = "block";
+  if (cards[currIndex]) {
+    cards[currIndex].style.display = "block";
 
-    const answerDiv = cards[index].querySelector(".hidden-div");
+    const answerDiv = cards[currIndex].querySelector(".hidden-div");
     answerDiv.style.display = "none";
 
-  
+
     buttons.onclick = () => {
-      answerDiv.style.display = (answerDiv.style.display === "none") ? "block" : "none";
+      if ((answerDiv.style.display === "none")) {
+        answerDiv.style.display = "block"
+      } else {
+        answerDiv.style.display = "none"
+      }
+
     };
   }
+
 }
 
 function previous() {
   if (currIndex > 0) {
     currIndex--;
-    showCard(currIndex);
+    cards.forEach(card => card.style.display = "none");
+    if (cards[currIndex]) {
+      cards[currIndex].style.display = "block";
+
+      const answerDiv = cards[currIndex].querySelector(".hidden-div");
+      answerDiv.style.display = "none";
+
+
+      buttons.onclick = () => {
+        if ((answerDiv.style.display === "none")) {
+          answerDiv.style.display = "block"
+        } else {
+          answerDiv.style.display = "none"
+        }
+      };
+    }
   }
 }
 previousButton.addEventListener('click', previous);
@@ -98,7 +125,22 @@ previousButton.addEventListener('click', previous);
 function viewNextCard() {
   if (currIndex < data.length - 1) {
     currIndex++;
-    showCard(currIndex);
+    cards.forEach(card => card.style.display = "none");
+    if (cards[currIndex]) {
+      cards[currIndex].style.display = "block";
+
+      const answerDiv = cards[currIndex].querySelector(".hidden-div");
+      answerDiv.style.display = "none";
+
+
+      buttons.onclick = () => {
+        if ((answerDiv.style.display === "none")) {
+          answerDiv.style.display = "block"
+        } else {
+          answerDiv.style.display = "none"
+        }
+      };
+    }
   }
 }
 nextButton.addEventListener("click", viewNextCard);
